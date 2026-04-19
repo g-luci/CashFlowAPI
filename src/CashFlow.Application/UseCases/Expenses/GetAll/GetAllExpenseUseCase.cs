@@ -7,17 +7,17 @@ namespace CashFlow.Application.UseCases.Expenses.GetAll
     public class GetAllExpenseUseCase : IGetAllExpenseUseCase
     {
         private readonly IMapper _mapper;
-        private readonly IExpensesRepository _repository;
-        public GetAllExpenseUseCase(IMapper mapper, IExpensesRepository repository)
+        private readonly IExpensesReadOnlyRepository _repository;
+        public GetAllExpenseUseCase(IMapper mapper, IExpensesReadOnlyRepository repository)
         {
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task<ResponseExpenseJson> Execute()
+        public async Task<ResponseExpensesJson> Execute()
         {
             var result = await _repository.GetAll();
 
-            return new ResponseExpenseJson
+            return new ResponseExpensesJson
             {
                 Expenses = _mapper.Map<List<ResponseShortExpenseJson>>(result)
             };
