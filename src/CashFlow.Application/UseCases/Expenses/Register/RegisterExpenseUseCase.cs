@@ -21,7 +21,7 @@ namespace CashFlow.Application.UseCases.Expenses.Register
             _mapper = mapper;
         }
 
-        public async Task<ResponseRegisterExpenseJson> Execute(RequestRegisterExpenseJson request)
+        public async Task<ResponseRegisterExpenseJson> Execute(RequestExpenseJson request)
         {
             Validate(request);
 
@@ -34,7 +34,7 @@ namespace CashFlow.Application.UseCases.Expenses.Register
             return _mapper.Map<ResponseRegisterExpenseJson>(entity);   
         }
 
-        private void Validate(RequestRegisterExpenseJson request)
+        private void Validate(RequestExpenseJson request)
         {
             var result = new RegisterExpenseValidator().Validate(request);
 
