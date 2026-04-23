@@ -15,9 +15,9 @@ namespace CashFlow.Api.Middleware
 
             var supportedLanguages = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
 
-            var requestedCulture = context.Request.Headers.AcceptLanguage.FirstOrDefault();
+            var requestedCulture = context.Request.Headers.AcceptLanguage.FirstOrDefault()!.Split(',')[0];
 
-            var cultureInfo = new CultureInfo("en");
+            var cultureInfo = new CultureInfo("en-US");
 
             if (string.IsNullOrWhiteSpace(requestedCulture) == false 
                 && supportedLanguages.Exists(language => language.Name.Equals(requestedCulture))) 
