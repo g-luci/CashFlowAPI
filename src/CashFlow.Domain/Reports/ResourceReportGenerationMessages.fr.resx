@@ -138,10 +138,16 @@
   <data name="ELETRONIC_TRANSFER" xml:space="preserve">
     <value>Virement Électronique</value>
   </data>
+  <data name="EXPENSES_FOR" xml:space="preserve">
+    <value>Dépenses pour</value>
+  </data>
   <data name="PAYMENT_TYPE" xml:space="preserve">
     <value>Type de paiement</value>
   </data>
   <data name="TITLE" xml:space="preserve">
     <value>Titre</value>
+  </data>
+  <data name="TOTAL_SPENT_IN" xml:space="preserve">
+    <value>Total dépensé en {0}</value>
   </data>
 </root>
