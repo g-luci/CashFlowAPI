@@ -1,5 +1,7 @@
 ﻿using CashFlow.Domain.Repositories;
 using CashFlow.Domain.Repositories.Expenses;
+using CashFlow.Domain.Repositories.User;
+using CashFlow.Domain.Security.Cryptography;
 using CashFlow.Infrastructure.DataAccess;
 using CashFlow.Infrastructure.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +16,8 @@ namespace CashFlow.Infrastructure
         {
             services
             .AddDbContext(configuration)
-            .AddRepositories();
+            .AddRepositories()
+            .AddScoped<IPasswordEncripter, Security.BCrypt>();
 
             return services;
         }
@@ -24,6 +27,8 @@ namespace CashFlow.Infrastructure
             services.AddScoped<IExpensesReadOnlyRepository, ExpensesRepository>();
             services.AddScoped<IExpensesWriteOnlyRepository, ExpensesRepository>();
             services.AddScoped<IExpensesUpdateOnlyRepository, ExpensesRepository>();
+            services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+            services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
