@@ -5,17 +5,20 @@ using CashFlow.Application.UseCases.Expenses.Register;
 using CashFlow.Application.UseCases.Expenses.Update;
 using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CashFlow.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ExpensesController : ControllerBase
     {
         [HttpPost]
         [ProducesResponseType(typeof(ResponseRegisterExpenseJson), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Register(
             [FromServices] IRegisterExpenseUseCase useCase,
             [FromBody] RequestExpenseJson request)
@@ -29,6 +32,7 @@ namespace CashFlow.Api.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(ResponseExpensesJson), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetAllExpense([FromServices] IGetAllExpenseUseCase UseCase)
         {
             var response = await UseCase.Execute();
@@ -45,6 +49,7 @@ namespace CashFlow.Api.Controllers
         [Route("{id}")]
         [ProducesResponseType(typeof(ResponseExpenseJson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetById(
             [FromServices] IGetExpenseByIdUseCase useCase,
             [FromRoute] long id)
@@ -58,6 +63,7 @@ namespace CashFlow.Api.Controllers
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Delete(
             [FromServices] IDeleteExpenseUseCase useCase,
             [FromRoute]long id)
@@ -73,6 +79,7 @@ namespace CashFlow.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Update(
             [FromServices] IUpdateExpenseUseCase useCase,
             [FromRoute] long id,
