@@ -13,6 +13,7 @@ namespace CashFlow.Application.UseCases.Users.Register
                 .NotEmpty()
                 .WithMessage(ResourceErrorMessages.EMAIL_EMPTY)
                 .EmailAddress()
+                .When(user => string.IsNullOrWhiteSpace(user.Email) == false, ApplyConditionTo.CurrentValidator)
                 .WithMessage(ResourceErrorMessages.EMAIL_INVALID);
 
             RuleFor(user => user.Password).SetValidator(new PasswordValidator<RequestRegisterUserJson>());
