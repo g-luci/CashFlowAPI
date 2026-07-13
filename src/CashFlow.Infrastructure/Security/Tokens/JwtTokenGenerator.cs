@@ -23,7 +23,8 @@ namespace CashFlow.Infrastructure.Security.Tokens
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.Sid, user.UserIdentifier.ToString())
+                new Claim(ClaimTypes.Sid, user.UserIdentifier.ToString()),
+                new Claim(ClaimTypes.Role, user.Role)
             };
 
             var tokenDesriptor = new SecurityTokenDescriptor
