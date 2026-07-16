@@ -1,23 +1,18 @@
 ﻿using CashFlow.Exception;
 using CommonTestUtilities.Requests;
 using Shouldly;
-using System.Net;
-using System.Net.Http.Json;
-using System.Text.Json;
-using System.Net.Http.Headers;
 using System.Globalization;
+using System.Net;
+using System.Text.Json;
 using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Users.Register
 {
-    public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
+    public class RegisterUserTest : CashFlowClassFixture
     {
         private const string METHOD = "api/User";
-        private readonly HttpClient _httpClient;
-
-        public RegisterUserTest(CustomWebApplicationFactory webAppAplicationFactory)
+        public RegisterUserTest(CustomWebApplicationFactory webAppAplicationFactory) : base(webAppAplicationFactory)
         {
-            _httpClient = webAppAplicationFactory.CreateClient();
         }
 
         [Fact]
@@ -25,7 +20,7 @@ namespace WebApi.Test.Users.Register
         {
             var request = RequestRegisterUserJsonBuilder.Build();
 
-            var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+            var result = await DoPost(requestUri: METHOD, request: request);
 
             result.StatusCode.ShouldBe(HttpStatusCode.Created);
 
@@ -44,9 +39,7 @@ namespace WebApi.Test.Users.Register
             var request = RequestRegisterUserJsonBuilder.Build();
             request.Name = string.Empty;
 
-            _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(culture));
-
-            var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+            var result = await DoPost(requestUri: METHOD, request: request, culture: culture);
 
             result.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
