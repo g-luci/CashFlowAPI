@@ -24,6 +24,17 @@ namespace WebApi.Test
 
             return await _httpClient.PostAsJsonAsync(requestUri, request);
         }
+        protected async Task<HttpResponseMessage> DoPut(
+            string requestUri,
+            object request,
+            string token,
+            string culture = "en")
+        {
+            AuthorizeRequest(token);
+            ChangeRequestCulture(culture);
+
+            return await _httpClient.PutAsJsonAsync(requestUri, request);
+        }
 
         protected async Task<HttpResponseMessage> DoGet(
             string requestUri,
