@@ -9,7 +9,7 @@ using CommonTestUtilities.Requests;
 using CommonTestUtilities.Token;
 using Shouldly;
 
-namespace UseCases.Test.Users.Login.DoLogin
+namespace UseCases.Test.Login.DoLogin
 {
     public class DoLoginUseCaseTest
     {
