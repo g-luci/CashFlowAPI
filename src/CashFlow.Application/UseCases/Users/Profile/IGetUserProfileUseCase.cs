@@ -1,6 +1,6 @@
 ﻿using CashFlow.Communication.Responses;
 
-namespace CashFlow.Application.UseCases.Users.GetProfile
+namespace CashFlow.Application.UseCases.Users.Profile
 {
     public interface IGetUserProfileUseCase
     {

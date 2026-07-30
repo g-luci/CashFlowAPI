@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using CashFlow.Communication.Responses;
-using CashFlow.Domain.Entities;
-using CashFlow.Domain.Repositories.User;
 using CashFlow.Domain.Services.LoggedUser;
 
-namespace CashFlow.Application.UseCases.Users.GetProfile
+namespace CashFlow.Application.UseCases.Users.Profile
 {
     public class GetUserProfileUseCase : IGetUserProfileUseCase
     {
