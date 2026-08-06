@@ -13,7 +13,7 @@ namespace CashFlow.Application.UseCases.Users.Update
                 .NotEmpty()
                 .WithMessage(ResourceErrorMessages.EMAIL_EMPTY)
                 .EmailAddress()
-                .When(user => string.IsNullOrEmpty(user.Email) == false, ApplyConditionTo.CurrentValidator)
+                .When(user => string.IsNullOrWhiteSpace(user.Email) == false, ApplyConditionTo.CurrentValidator)
                 .WithMessage(ResourceErrorMessages.EMAIL_INVALID);
         }
     }
