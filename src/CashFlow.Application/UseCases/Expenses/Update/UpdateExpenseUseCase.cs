@@ -40,6 +40,8 @@ namespace CashFlow.Application.UseCases.Expenses.Update
                 throw new NotFoundException(ResourceErrorMessages.EXPENSE_NOT_FOUND);
             }
 
+            expense.Tags.Clear();
+
             _repository.Update(_mapper.Map(request, expense));
             //Ou apenas _mapper.Map(request, expense); pois o GetById já está rastreando a entidade.
 
