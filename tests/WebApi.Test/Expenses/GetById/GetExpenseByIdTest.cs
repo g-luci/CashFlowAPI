@@ -38,6 +38,9 @@ namespace WebApi.Test.Expenses.GetById
             response.RootElement.GetProperty("description").GetString().ShouldNotBeNullOrWhiteSpace();
             response.RootElement.GetProperty("date").GetDateTime().ShouldBeLessThanOrEqualTo(DateTime.Today);
             response.RootElement.GetProperty("amount").GetDecimal().ShouldBeGreaterThan(0);
+            response.RootElement.GetProperty("tags").ShouldSatisfyAllConditions(
+                one => one.ValueKind.ShouldNotBe(JsonValueKind.Null),
+                two => two.GetArrayLength().ShouldBeGreaterThan(0));
 
             var paymentType = response.RootElement.GetProperty("paymentType").GetInt32();
             Enum.IsDefined(typeof(PaymentType), paymentType).ShouldBeTrue();

@@ -29,6 +29,10 @@ namespace UseCases.Test.Expenses.GetById
             result.Date.ShouldBe(expense.Date);
             result.Amount.ShouldBe(expense.Amount);
             result.PaymentType.ShouldBe((CashFlow.Communication.Enums.PaymentType)expense.PaymentType);
+            result.Tags.ShouldSatisfyAllConditions(
+                one => one.ShouldNotBeNull(),
+                two => two.ShouldNotBeEmpty(), 
+                three => three.ShouldBeEquivalentTo(expense.Tags.Select(tag => (CashFlow.Communication.Enums.Tag)tag.Value).ToList()));
         }
 
         [Fact]

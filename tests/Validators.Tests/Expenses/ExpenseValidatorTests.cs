@@ -4,9 +4,9 @@ using CashFlow.Exception;
 using CommonTestUtilities.Requests;
 using Shouldly;
 
-namespace Validators.Tests.Expenses.Register
+namespace Validators.Tests.Expenses
 {
-    public class RegisterExpenseValidatorTests
+    public class ExpenseValidatorTests
     {
         [Fact]
         public void Success()
@@ -106,6 +106,26 @@ namespace Validators.Tests.Expenses.Register
             result.Errors
                 .ShouldSatisfyAllConditions(condition_one => condition_one.ShouldHaveSingleItem(),
                 condition_two => condition_two.ShouldContain(e => e.ErrorMessage.Equals(ResourceErrorMessages.AMOUNT_MUST_BE_GREATER_THAN_ZERO)));
+        }
+
+        [Fact]
+        public void Error_Tag_Invalid()
+        {
+            //Arrange
+            var validator = new ExpenseValidator();
+
+            var request = RequestExpenseJsonBuilder.Build();
+
+            request.Tags.Add((Tag)1000);
+
+            //Act
+            var result = validator.Validate(request);
+
+            //Assert
+            result.IsValid.ShouldBeFalse();
+            result.Errors
+                .ShouldSatisfyAllConditions(condition_one => condition_one.ShouldHaveSingleItem(),
+                condition_two => condition_two.ShouldContain(e => e.ErrorMessage.Equals(ResourceErrorMessages.TAG_TYPE_NOT_SUPPORTED)));
         }
     }
 }
